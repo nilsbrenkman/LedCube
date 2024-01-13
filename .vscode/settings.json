@@ -3,7 +3,12 @@
     "C_Cpp.default.configurationProvider": "particle.particle-vscode-core",
     "files.associations": {
         "*.ino": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "array": "cpp",
+        "locale": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "vector": "cpp"
     },
     "particle.targetDevice": "LedCube1",
     "particle.firmwareVersion": "3.3.1",
