@@ -9,11 +9,13 @@ class AbstractProgram {
 public:
   void init(CubeController *cube_controller_p);
   void loop();
-  virtual void tick();
 
 protected:
+  virtual void tick();
+  virtual int frequency();
+
   CubeController *cube_controller_p;
-  system_tick_t last_tick;
+  uint32_t next_tick;
 };
 
 LEDCUBE_NAMESPACE_END

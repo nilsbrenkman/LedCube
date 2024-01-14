@@ -27,16 +27,23 @@ struct font_glyph_dsc_t {
   uint32_t glyph_index;
 };
 
-struct draw_buf_t {
-  uint16_t size;
-  uint8_t bitmap[8];
+struct byte_buffer_t {
+  uint8_t size;
+  uint8_t cursor;
+  uint8_t buffer[8];
+  bool has_next() { return size > cursor; };
+  uint8_t next() {
+    uint8_t value = buffer[cursor];
+    cursor += 1;
+    return value;
+  };
 };
 
 bool font_get_glyph_dsc(const font_t *font_p, font_glyph_dsc_t *glyph_p,
                         uint32_t letter);
 
 const void font_get_glyph_bitmap(font_glyph_dsc_t *glyph_p,
-                                 draw_buf_t *buffer_p);
+                                 byte_buffer_t *buffer_p);
 
 LEDCUBE_NAMESPACE_END
 

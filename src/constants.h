@@ -2,7 +2,7 @@
 #define Constants_H
 
 #ifndef LEDCUBE_NAMESPACE_BEGIN
-#define LEDCUBE_NAMESPACE_BEGIN //namespace LedCube {
+#define LEDCUBE_NAMESPACE_BEGIN // namespace LedCube {
 #define LEDCUBE_NAMESPACE_END   //}
 #endif
 
@@ -22,6 +22,7 @@ enum class LedCubeOperation { set, clear, toggle };
 #define CLEAR LedCubeOperation::clear
 
 #define ALL_BITS 0xFF
+#define NO_BITS 0x00
 #define ALL_CUBE                                                               \
   { ALL_BITS, ALL_BITS, ALL_BITS }
 

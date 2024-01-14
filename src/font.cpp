@@ -17,19 +17,20 @@ bool font_get_glyph_dsc(const font_t *font_p, font_glyph_dsc_t *glyph_p,
 }
 
 const void font_get_glyph_bitmap(font_glyph_dsc_t *glyph_p,
-                                 draw_buf_t *buffer_p) {
+                                 byte_buffer_t *buffer_p) {
 
   buffer_p->size = glyph_p->w_px;
+  buffer_p->cursor = 0;
 
   for (int i = 0; i < 8; i++) {
-    buffer_p->bitmap[i] = 0x00;
+    buffer_p->buffer[i] = 0x00;
   }
 
   for (int i = 0; i < 8; i++) {
     uint8_t row = glyph_p->font_p->glyph_bitmap[glyph_p->glyph_index + i];
     for (int j = 0; j < 8; j++) {
       if (bit_check(row, j)) {
-        bit_set(buffer_p->bitmap[7 - j], i);
+        bit_set(buffer_p->buffer[7 - j], i);
       }
     }
   }

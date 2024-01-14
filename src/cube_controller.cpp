@@ -18,8 +18,9 @@ void CubeController::refresh() {
 
   digitalWrite(LED_LATCH_PIN, LOW);
 
-  // We need to write all 9 regissters in reverse order, starting with the layer register
-  write_to_register(idx_to_bit(active_layer))
+  // We need to write all 9 regissters in reverse order, starting with the layer
+  // register
+  write_to_register(idx_to_bit(active_layer));
 
   // Then the 8 rows, in reverse order
   for (int row = LED_CUBE_SIZE; row > 0; row--) {
@@ -34,25 +35,27 @@ bool CubeController::led(uint8_t x, uint8_t y, uint8_t z) {
   return bit_check(row, x);
 }
 
-void CubeController::update(uint8_t x, uint8_t y, uint8_t z, LedCubeOperation operation) {
-  update({ idx_to_bit(x), idx_to_bit(y), idx_to_bit(z) }, operation);
+void CubeController::update(uint8_t x, uint8_t y, uint8_t z,
+                            LedCubeOperation operation) {
+  update({idx_to_bit(x), idx_to_bit(y), idx_to_bit(z)}, operation);
 }
 
-void CubeController::update(CubeAddress address, LedCubeOperation operation) {
+void CubeController::update(cube_address_t address,
+                            LedCubeOperation operation) {
   for (int z = 0; z < LED_CUBE_SIZE; z++) {
     if (bit_check(address.z, z)) {
       for (int y = 0; y < LED_CUBE_SIZE; y++) {
         if (bit_check(address.y, y)) {
           switch (operation) {
-            case LedCubeOperation::set:
-              led_cube[y][z] |= address.x;
-              break;
-            case LedCubeOperation::toggle:
-              led_cube[y][z] ^= address.x;
-              break;
-            case LedCubeOperation::clear:
-              led_cube[y][z] &= ~address.x;
-              break;
+          case LedCubeOperation::set:
+            led_cube[y][z] |= address.x;
+            break;
+          case LedCubeOperation::toggle:
+            led_cube[y][z] ^= address.x;
+            break;
+          case LedCubeOperation::clear:
+            led_cube[y][z] &= ~address.x;
+            break;
           }
         }
       }

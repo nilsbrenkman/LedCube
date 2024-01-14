@@ -1,3 +1,8 @@
+/******************************************************/
+//       THIS IS A GENERATED FILE - DO NOT EDIT       //
+/******************************************************/
+
+#line 1 "/Users/nils/Projects/LedCube/src/LedCube.ino"
 /*
  * Project myProject
  * Author: Your Name
@@ -16,6 +21,9 @@
 #include "ticker.h"
 
 // Let Device OS manage the connection to the Particle Cloud
+void setup();
+void loop();
+#line 19 "/Users/nils/Projects/LedCube/src/LedCube.ino"
 SYSTEM_MODE(AUTOMATIC);
 
 // Run the application and system concurrently in separate threads
