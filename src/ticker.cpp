@@ -16,7 +16,7 @@ Ticker::Ticker() {
     ticker_data[i] = {idx_to_bit(x), idx_to_bit(y), NO_BITS};
   }
 
-  cube_controller_p->update(ALL_CUBE, CLEAR);
+  update(ALL_CUBE, CLEAR);
 }
 
 void Ticker::tick() {
@@ -48,11 +48,11 @@ void Ticker::append_to_ticker(uint8_t bit) {
       continue; // no update
     }
     target->z = source->z;
-    cube_controller_p->update({target->x, target->y, toggle}, TOGGLE);
+    update({target->x, target->y, toggle}, TOGGLE);
   }
   uint8_t toggle = source->z ^ bit;
   if (toggle != 0) {
-    cube_controller_p->update({source->x, source->y, toggle}, TOGGLE);
+    update({source->x, source->y, toggle}, TOGGLE);
     source->z = bit;
   }
 

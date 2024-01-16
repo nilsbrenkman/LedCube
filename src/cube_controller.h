@@ -3,28 +3,37 @@
 
 #include "Particle.h"
 #include "constants.h"
+#include "cube_types.h"
+
+static cube_t led_cube = {};
+static unsigned long last_refresh = 0;
+static uint8_t active_layer = -1;
+
+void refresh();
+bool led(uint8_t x, uint8_t y, uint8_t z);
+void update(uint8_t x, uint8_t y, uint8_t z, LedCubeOperation operation);
+void update(cube_address_t address, LedCubeOperation operation);
+void print_to_serial();
 
 LEDCUBE_NAMESPACE_BEGIN
 
-typedef struct {
-  uint8_t x;
-  uint8_t y;
-  uint8_t z;
-} cube_address_t;
+// class CubeController {
 
-class CubeController {
-public:
-  CubeController();
-  void refresh();
-  bool led(uint8_t x, uint8_t y, uint8_t z);
-  void update(uint8_t x, uint8_t y, uint8_t z, LedCubeOperation operation);
-  void update(cube_address_t address, LedCubeOperation operation);
+// public:
+//   // static CubeController *cube_controller() {
+//   //   static CubeController cube_controller = CubeController();
+//   //   cube_controller.led_cube = {};
+//   //   cube_controller.active_layer = -1;
+//   //   return &cube_controller;
+//   // };
 
-private:
-  byte led_cube[LED_CUBE_SIZE][LED_CUBE_SIZE]; // x[y][z]
-  unsigned long last_refresh;
-  uint8_t active_layer;
-};
+//   CubeController();
+//   void refresh();
+//   bool led(uint8_t x, uint8_t y, uint8_t z);
+//   void update(uint8_t x, uint8_t y, uint8_t z, LedCubeOperation operation);
+//   void update(cube_address_t address, LedCubeOperation operation);
+//   void print_to_serial();
+// };
 
 LEDCUBE_NAMESPACE_END
 

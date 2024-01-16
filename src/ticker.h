@@ -4,8 +4,10 @@
 #include "Particle.h"
 #include "abstract_program.h"
 #include "constants.h"
+#include "cube_types.h"
 #include "dogica.h"
 #include "font.h"
+#include "singletons.h"
 
 LEDCUBE_NAMESPACE_BEGIN
 

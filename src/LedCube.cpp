@@ -14,16 +14,18 @@
 // Include Particle Device OS APIs
 #include "Particle.h"
 #include "abstract_program.h"
+#include "blink.h"
 #include "constants.h"
 #include "cube_controller.h"
 #include "dogica.h"
 #include "font.h"
+#include "singletons.h"
 #include "ticker.h"
 
 // Let Device OS manage the connection to the Particle Cloud
 void setup();
 void loop();
-#line 19 "/Users/nils/Projects/LedCube/src/LedCube.ino"
+#line 21 "/Users/nils/Projects/LedCube/src/LedCube.ino"
 SYSTEM_MODE(AUTOMATIC);
 
 // Run the application and system concurrently in separate threads
@@ -35,7 +37,7 @@ LEDCUBE_NAMESPACE_BEGIN
 // View logs with CLI using 'particle serial monitor --follow'
 SerialLogHandler logHandler(LOG_LEVEL_INFO);
 
-CubeController *cube_controller;
+// CubeController *cube_controller_p = &CubeController::cube_controller();
 
 AbstractProgram *program;
 
@@ -50,48 +52,30 @@ void setup() {
   pinMode(LED_CLOCK_PIN, OUTPUT);
   pinMode(LED_LATCH_PIN, OUTPUT);
 
-  cube_controller = new CubeController();
-  cube_controller->update({0b01010101, ALL_BITS, ALL_BITS}, CLEAR);
+  delay(1500);
+
+  // (CubeController::cube_controller()).print_to_serial();
+  update({ALL_BITS, ALL_BITS, ALL_BITS}, CLEAR);
 
   delay(500);
 
-  program = new Ticker();
-  program->init(cube_controller);
+  program = new Blink();
+
+  // cube_controller->update({0b01010101, 0b00110011, 0b00001111}, SET);
 
   delay(500);
-
-  // font_glyph_dsc_t glyph = {};
-  // draw_buf_t buffer = {};
-  // font_get_glyph_dsc(&dogica, &glyph, 0x0047);
-  // font_get_glyph_bitmap(&glyph, &buffer);
-
-  // Serial.printlnf("Found letter width %d", buffer.size);
-  // for (int i = 0; i < 8; i++) {
-  //   Serial.print("//");
-  //   for (int j = 0; j < buffer.size; j++) {
-  //     if (bit_check(buffer.bitmap[j], i)) {
-  //       Serial.print(" #");
-  //     } else {
-  //       Serial.print(" .");
-  //     }
-  //   }
-  //   Serial.println("");
-  // }
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
 
-  cube_controller->refresh();
+  // cube_controller_p->refresh();
 
   program->loop();
 
-  // system_tick_t now = millis();
+  // cube_controller_p->print_to_serial();
 
-  // if (now - last_tick > 500) {
-  //   last_tick = now;
-  //   cube_controller->update(ALL_CUBE, TOGGLE);
-  // }
+  // delay(5000);
 }
 
 LEDCUBE_NAMESPACE_END

@@ -7,15 +7,13 @@ LEDCUBE_NAMESPACE_BEGIN
 
 class AbstractProgram {
 public:
-  void init(CubeController *cube_controller_p);
   void loop();
 
 protected:
   virtual void tick();
   virtual int frequency();
 
-  CubeController *cube_controller_p;
-  uint32_t next_tick;
+  uint32_t next_tick = 0;
 };
 
 LEDCUBE_NAMESPACE_END
